@@ -2,69 +2,52 @@ import java.util.Scanner;
 
 public class Principal {
     public static void main(String[] args) {
-        Scanner number = new Scanner(System.in);
+        Scanner input = new Scanner(System.in);
 
-       
-        int[] valores = new int[3];
-        System.out.println("Digite 3 números: ");
-        for (int i = 0; i < valores.length; i++) {
-            valores[i] = number.nextInt();
+        System.out.println("Digite a quantidade de valores (n) para o vetor X: ");
+        int n = input.nextInt();
+        int[] X = new int[n];
+
+        for (int i = 0; i < n; i++) {
+            System.out.println("Digite o valor referente ao X [" + (i) + "]: ");
+            X[i] = input.nextInt();
         }
 
-        int x = valores[0];
-        int y = valores[1];
-        int z = valores[2];
- 
-       
+        System.out.println("Digite a quantidade de valores (m) para o vetor Y: ");
+        int m = input.nextInt();
+        int[] Y = new int[m];
+
+        for (int i = 0; i < m; i++) {
+            System.out.println("Digite o valor referente ao Y [" + (i) + "]: ");
+            Y[i] = input.nextInt();
+        }
+
         int maior;
-        if (x >= y && x >= z) {
-            maior = x;
-        } else if (y >= x && y >= z) {
-            maior = y;
+        if (n >= m) {
+            maior = n;
         } else {
-            maior = z;
+            maior = m;
         }
 
-        
-        int menor;
-        if (x <= y && x <= z) {
-            menor = x;
-        } else if (y <= x && y <= z) {
-            menor = y;
-        } else {
-            menor = z;
+        int[] Z = new int[n + m];
+        int contador = 0;
+
+        for (int i = 0; i < maior; i++) {
+            if (i < n) {
+                Z[contador] = X[i];
+                contador++;
+            }
+            if (i < m) {
+                Z[contador] = Y[i];
+                contador++;
+            }
         }
 
-        System.out.println("O maior número é o: " + maior);
-        System.out.println("O menor número é o: " + menor);
-
-        
-        int limiteInferior;
-        int limiteSuperior;
-
-        if (y <= z) {
-            limiteInferior = y;
-            limiteSuperior = z;
-        } else {
-            limiteInferior = z;
-            limiteSuperior = y;
+        System.out.println("Valores do vetor Z: ");
+        for (int i = 0; i < Z.length; i++) {
+            System.out.println("Z [" + (i) + "] = " + Z[i]);
         }
 
-        if (x >= limiteInferior && x <= limiteSuperior) {
-            System.out.println("O X está dentro do intervalo [" + y + ", " + z + "]");
-        } else {
-            System.out.println("O X está fora do intervalo [" + y + ", " + z + "]");
-        }
-
-        
-        if (y == 0 || z == 0) {
-            System.out.println("Não dá para testar divisibilidade: divisão por zero");
-        } else if (x % y == 0 && x % z == 0) {
-            System.out.println("X é divisível por Y e por Z");
-        } else {
-            System.out.println("X não é divisível por Y e por Z");
-        }
-
-        number.close();
+        input.close();
     }
 }
