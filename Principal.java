@@ -4,49 +4,41 @@ public class Principal {
     public static void main(String[] args) {
         Scanner input = new Scanner(System.in);
 
-        System.out.println("Digite a quantidade de valores (n) para o vetor X: ");
-        int n = input.nextInt();
-        int[] X = new int[n];
+        String[] gabarito = new String[8];
 
-        for (int i = 0; i < n; i++) {
-            System.out.println("Digite o valor referente ao X [" + (i) + "]: ");
-            X[i] = input.nextInt();
+        System.out.println("Digite o gabarito da prova (8 respostas): ");
+        for (int i = 0; i < 8; i++) {
+            System.out.println("Resposta da questao " + (i + 1) + ": ");
+            gabarito[i] = input.next();
         }
 
-        System.out.println("Digite a quantidade de valores (m) para o vetor Y: ");
-        int m = input.nextInt();
-        int[] Y = new int[m];
+        int aprovados = 0;
 
-        for (int i = 0; i < m; i++) {
-            System.out.println("Digite o valor referente ao Y [" + (i) + "]: ");
-            Y[i] = input.nextInt();
-        }
+        for (int aluno = 0; aluno < 10; aluno++) {
+            System.out.println("Digite o numero do aluno: ");
+            int numero = input.nextInt();
 
-        int maior;
-        if (n >= m) {
-            maior = n;
-        } else {
-            maior = m;
-        }
+            int nota = 0;
 
-        int[] Z = new int[n + m];
-        int contador = 0;
+            for (int i = 0; i < 8; i++) {
+                System.out.println("Resposta do aluno para a questao " + (i + 1) + ": ");
+                String resposta = input.next();
 
-        for (int i = 0; i < maior; i++) {
-            if (i < n) {
-                Z[contador] = X[i];
-                contador++;
+                if (resposta.equalsIgnoreCase(gabarito[i])) {
+                    nota++;
+                }
             }
-            if (i < m) {
-                Z[contador] = Y[i];
-                contador++;
+
+            if (nota >= 6) {
+                aprovados++;
             }
+
+            System.out.println("Aluno: " + numero + " - Nota: " + nota);
         }
 
-        System.out.println("Valores do vetor Z: ");
-        for (int i = 0; i < Z.length; i++) {
-            System.out.println("Z [" + (i) + "] = " + Z[i]);
-        }
+        double porcentagem = (aprovados * 100.0) / 10;
+
+        System.out.println("Porcentagem de aprovacao: " + porcentagem + "%");
 
         input.close();
     }
