@@ -4,44 +4,40 @@ public class Principal {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
 
-        int[] numeros = new int[6];
-        int[] pares = new int[6];
-        int[] posicao_pares = new int[6];
-        int contador_pares = 0;
-        int[] impares = new int[6];
-        int[] posicao_impares = new int[6];
-        int contador_impares = 0;
-        int soma_pares = 0;
-        
-        System.out.println("Digite 6 números inteiros: ");
-        for(int i = 0; i < 6; i++){
-            numeros[i] = input.nextInt();
-            
-            if(numeros[i] % 2 == 0){
-                pares[contador_pares] = numeros[i];
-                posicao_pares[contador_pares] = i + 1;
-                soma_pares += numeros[i];
-                contador_pares++;
-            } else{
-                impares[contador_impares] = numeros[i];
-                posicao_impares[contador_impares] = i + 1;
-                contador_impares++;
+        int[][] vendas = new int[12][4];
+        String[] meses = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+
+        for(int i = 0; i < 12; i++){
+            for(int j = 0; j < 4; j++){
+                System.out.println("Digite as vendas da semana " + (j + 1) + " do mês de " + meses[i] + ": ");
+                vendas[i][j] = input.nextInt();
             }
-   
+        }
+
+        int[] total_mes = new int[12];
+        int[] total_semana = new int[4];
+        int total_ano = 0;
+
+        for(int i = 0; i < 12; i++){
+            for(int j = 0; j < 4; j++){
+                total_mes[i] += vendas[i][j];
+                total_semana[j] += vendas[i][j];
+                total_ano += vendas[i][j];
+            }
         }
 
         System.out.println("Relatório: ");
-        System.out.println("Os números pares são: ");
-        for(int i = 0; i < contador_pares; i++){
-            System.out.println("Número " + pares[i] + " na posição " + posicao_pares[i]);
+
+        for(int i = 0; i < 12; i++){
+            System.out.println("Total de vendas de " + meses[i] + " = " + total_mes[i]);
         }
-        System.out.println("Soma dos pares = " + soma_pares);
-        System.out.println("Os números ímpares são: ");
-        for(int i = 0; i < contador_impares; i++){
-            System.out.println("Número " + impares[i] + " na posição " + posicao_impares[i]);
+
+        for(int j = 0; j < 4; j++){
+            System.out.println("Total vendido na semana " + (j + 1) + " durante todo o ano = " + total_semana[j]);
         }
-        System.out.println("Quantidade de ímpares = " + contador_impares);
-        
+
+        System.out.println("Total de vendas do ano = " + total_ano);
+
         input.close();
     }
 }
