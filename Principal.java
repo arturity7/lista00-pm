@@ -4,39 +4,51 @@ public class Principal {
     public static void main(String[] args){
         Scanner input = new Scanner(System.in);
 
-        int[][] vendas = new int[12][4];
-        String[] meses = {"janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"};
+        char[] equipes = new char[16];
 
-        for(int i = 0; i < 12; i++){
-            for(int j = 0; j < 4; j++){
-                System.out.println("Digite as vendas da semana " + (j + 1) + " do mês de " + meses[i] + ": ");
-                vendas[i][j] = input.nextInt();
+        for(int i = 0; i < 16; i++){
+            equipes[i] = (char)('A' + i);
+        }
+
+        int jogo = 1;
+
+        while(equipes.length > 1){
+            char[] vencedores = new char[equipes.length / 2];
+
+            for(int i = 0; i < vencedores.length; i++){
+                char esquerda = equipes[i * 2];
+                char direita = equipes[i * 2 + 1];
+
+                int gols_esquerda;
+                int gols_direita;
+
+                do {
+                    System.out.println("Jogo " + jogo + " - gols da equipe " + esquerda + ": ");
+                    gols_esquerda = input.nextInt();
+
+                    System.out.println("Jogo " + jogo + " - gols da equipe " + direita + ": ");
+                    gols_direita = input.nextInt();
+
+                    if(gols_esquerda < 0 || gols_esquerda > 20 || gols_direita < 0 || gols_direita > 20){
+                        System.out.println("O número de gols deve estar entre 0 e 20. Digite novamente.");
+                    } else if(gols_esquerda == gols_direita){
+                        System.out.println("Não pode haver empate. Digite novamente.");
+                    }
+                } while(gols_esquerda < 0 || gols_esquerda > 20 || gols_direita < 0 || gols_direita > 20 || gols_esquerda == gols_direita);
+
+                if(gols_esquerda > gols_direita){
+                    vencedores[i] = esquerda;
+                } else {
+                    vencedores[i] = direita;
+                }
+
+                jogo++;
             }
+
+            equipes = vencedores;
         }
 
-        int[] total_mes = new int[12];
-        int[] total_semana = new int[4];
-        int total_ano = 0;
-
-        for(int i = 0; i < 12; i++){
-            for(int j = 0; j < 4; j++){
-                total_mes[i] += vendas[i][j];
-                total_semana[j] += vendas[i][j];
-                total_ano += vendas[i][j];
-            }
-        }
-
-        System.out.println("Relatório: ");
-
-        for(int i = 0; i < 12; i++){
-            System.out.println("Total de vendas de " + meses[i] + " = " + total_mes[i]);
-        }
-
-        for(int j = 0; j < 4; j++){
-            System.out.println("Total vendido na semana " + (j + 1) + " durante todo o ano = " + total_semana[j]);
-        }
-
-        System.out.println("Total de vendas do ano = " + total_ano);
+        System.out.println(equipes[0]);
 
         input.close();
     }
